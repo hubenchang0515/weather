@@ -8,7 +8,8 @@ import (
 	"log"
 	"os"
 	"path"
-	"weather"
+
+	"github.com/hubenchang0515/weather"
 )
 
 type Config struct {
@@ -32,6 +33,12 @@ func cache(key *string, city *string) {
 
 	if *city != "" {
 		config.City = *city
+	}
+
+	data, _ = json.Marshal(&config)
+	err = ioutil.WriteFile(configFile, data, 0644)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	*key = config.Key
