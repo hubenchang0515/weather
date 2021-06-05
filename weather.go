@@ -72,7 +72,7 @@ type DailyWeatherResults struct {
 	Results []DailyWeatherResult `json:"results"`
 }
 
-func Forecast(key string, city string, days uint) *DailyWeather {
+func Forecast(key string, city string, days uint) []DailyWeather {
 	url := fmt.Sprintf("https://api.seniverse.com/v3/weather/daily.json?key=%s&location=%s&language=zh-Hans&unit=c&start=0&days=%d", key, city, days)
 	response, err := http.Get(url)
 	if err != nil {
@@ -89,5 +89,5 @@ func Forecast(key string, city string, days uint) *DailyWeather {
 	if len(results.Results) == 0 || len(results.Results[0].Daily) == 0 {
 		return nil
 	}
-	return &results.Results[0].Daily[0]
+	return results.Results[0].Daily
 }
