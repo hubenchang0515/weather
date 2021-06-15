@@ -56,5 +56,5 @@ func main() {
 		fmt.Printf("cannot get weather of '%s' with key '%s'", *city, *key)
 		return
 	}
-	fmt.Printf("%s %s℃", w.Text, w.Temperature)
+	fmt.Printf("%s %s℃\n", w.Text, w.Temperature)
 }
