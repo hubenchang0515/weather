@@ -91,3 +91,19 @@ func Forecast(key string, city string, days uint) []DailyWeather {
 	}
 	return results.Results[0].Daily
 }
+
+func (w *DailyWeather) ToString() string {
+	str := ""
+	if w.DayText != w.NightText {
+		str += fmt.Sprintf("%s转%s ", w.DayText, w.NightText)
+	} else {
+		str += w.DayText + " "
+	}
+
+	if w.HighTemperature != w.LowTemperature {
+		str += fmt.Sprintf("%s~%s℃ ", w.LowTemperature, w.HighTemperature)
+	} else {
+		str += w.DayText + " "
+	}
+	return str
+}

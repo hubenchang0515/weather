@@ -45,6 +45,14 @@ func cache(key *string, city *string) {
 	*city = config.City
 }
 
+func combine(w weather.DailyWeather) {
+	if w.DayText != w.NightText {
+		fmt.Printf("%s转%s ", w.DayText, w.NightText)
+	} else {
+		fmt.Printf("%s", w.DayText)
+	}
+}
+
 func main() {
 	key := flag.String("key", "", "Webhook key of seniverse.com, will be saved in ~/.config/weather.config")
 	city := flag.String("city", "", "City, will be saved in ~/.config/weather.config")
@@ -56,5 +64,10 @@ func main() {
 		fmt.Printf("cannot get weather of '%s' with key '%s'", *city, *key)
 		return
 	}
-	fmt.Printf("%s %s℃\n", w.Text, w.Temperature)
+	fmt.Printf("实时: %s %s℃\n", w.Text, w.Temperature)
+	ws := weather.Forecast(*key, *city, 2)
+	if len(ws) == 2 {
+		fmt.Printf("今日: %s\n", ws[0].ToString())
+		fmt.Printf("明日: %s\n", ws[1].ToString())
+	}
 }
